@@ -1,0 +1,40 @@
+.text
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.title
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+}
+.chord
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+}
+.nextchord
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgb(68, 68, 68);
+}
+.box
+{
+    display: flex;
+    gap: 20px;
+}
+.checkboxes
+{
+    display: flex;
+}
+.generateButton
+{
+    margin: 6px 4px 6px 4px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: lightpink;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
