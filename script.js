@@ -10,9 +10,13 @@ let next = FirstChord();
 let slider = document.querySelector(".slider")
 let tempovalue = document.querySelector(".tempovalue")
 let generateButton = document.querySelector(".generateButton")
-let intervalId = 0;
+let intervalId,tickId = 0;
+let tick = new Audio("tick.mp3")
+let tempoToSec = 4000
 
-SliderUpdate();
+slider.addEventListener("input",SliderUpdate)
+tempovalue.addEventListener("input",SliderUpdate2)
+generateButton.addEventListener("click",Randomization)
 
 function FirstChord()
 {
@@ -63,17 +67,34 @@ function AddNumbers()
 
 function Randomization()
 {
+    // Check che il valore inserito dall'user per il tempo 
+    // nella textbox sia compreso tra 60 e 240
+
+    if(tempovalue.value<60)
+    {
+        tempovalue.value = 60
+        tempoToSec = 4000
+    }
+    else if(tempovalue.value>240)
+    {
+        tempovalue.value = 240
+        tempoToSec = 1000
+    }
+
     if(generateButton.innerHTML == "Random Chords")
     {
         RandomChord() 
+        tick.cloneNode().play()
         // Necessario perche set interval aspetta i secondi e poi inizia
         // Non inizia immediatamente quando lo starti
-        intervalId = setInterval(RandomChord,1/(slider.value/60)*1000*4) 
+        tickId = setInterval(()=>{tick.cloneNode().play()},tempoToSec/4)
+        intervalId = setInterval(RandomChord,tempoToSec) 
         generateButton.innerHTML = "Stop Chords"
     }
     else
     {
         clearInterval(intervalId)
+        clearInterval(tickId)
         generateButton.innerHTML = "Random Chords"
         chordplace.innerHTML = ""
         nextchordplace.innerHTML = ""
@@ -83,5 +104,12 @@ function Randomization()
 
 function SliderUpdate()
 {
-    setInterval(()=>{tempovalue.innerHTML = slider.value},10)
+    tempovalue.value = slider.value
+    tempoToSec = 1/(slider.value/60)*1000*4
+}
+
+function SliderUpdate2()
+{
+    tempoToSec = 1/(tempovalue.value/60)*1000*4
+    slider.value = tempovalue.value
 }
